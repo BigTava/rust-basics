@@ -1,12 +1,45 @@
 fn main() {
+
+    let a = 13;
+    let b = 2.3;
+    let c: f32 = 120.0;
+
+    let average = (a as f64 + b as f64 + c as f64)/(3 as f64);
+
+    assert_eq!(average, 45.1);
+    println!("Test passed!");
+
+    /*******************/
+    /* Char data types */
+    /*******************/
+    let letter = 'a';
+    let number = '1';
+    let finger = '\u{261D}';
+    // println!("{}\n{}\n{}", letter, number, finger);
+
+    /*************************/
+    /* Comparison opeartions */
+    /*************************/
+    let a = 1;
+    let b = 2;
+    // println!("a is {} and b is {}", a, b);
+    // println!("a EQUAL TO b is {}", a == b);
+    // println!("a NOT EQUAL TO b is {}", a != b);
+    // println!("a GREATER THAN b is {}", a > b);
+    // println!("a GREATER THAN OR EQUAL TO b is {}", a >= b);
+    // println!("a LESS THAN b is {}", a < b);
+    // println!("a LESS THAN OR EQUAL TO b is {}", a <= b);
+
+    /************************************/
     /* Boolean data type and operations */
+    /************************************/
     let a = true;
     let b = false;
-    println!("a is {} and b is {}", a, b);
-    println!("NOT a is {}", !a);
-    println!("a AND b is {}", a & b);
-    println!("a OR b is {}", a | b);
-    println!("a XOR b {}", a ^ b);
+    // println!("a is {} and b is {}", a, b);
+    // println!("NOT a is {}", !a);
+    // println!("a AND b is {}", a & b);
+    // println!("a OR b is {}", a | b);
+    // println!("a XOR b {}", a ^ b);
 
     // a ^ b is true therefore rust will not process 
     // panic as this is always true no matter what is right
@@ -37,7 +70,9 @@ fn main() {
     value = value >> 2; // shift left by 2
     // println!("value is {:08b}", value);
 
+    /*************************/
     /* Arithmetic operations */
+    /*************************/
     let a = 10;
     let b = 3;
     let c = a + b;
@@ -65,7 +100,6 @@ fn main() {
     // print!("k is {:08.3}\na is {}", k, a);
     // println!("k is {0:08.3}\na is {1}\nonce again, k is {0}", k, a);
 
-    /* Rust Hello World */
     let mut x: u8 = 255;
     // println!("x is {}", x);
     x = 20;
