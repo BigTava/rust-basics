@@ -1,5 +1,75 @@
 fn main() {
+    // data_types();
+    // basics();
+    // funcions();
+}
 
+/* FUNCTIONS */
+fn funcions() {
+    say_a_number(13);
+    say_the_sum(1,1);
+    let result = square(3);
+    println!("result is {:?}", result);
+
+    let celsius_temp = 23.0;
+    let fahrenheit_temp = celsius_to_fahrenheit(celsius_temp);
+
+    assert_eq!(fahrenheit_temp, 73.4);
+    println!("Test passed!")
+} 
+
+fn celsius_to_fahrenheit(c: f64) -> f64 {
+    return (1.8*c + 32.0);
+}
+
+fn square(x: i32) -> (i32, i32) {
+    println!("squaring {}", x);
+    return (x, x*x);
+}
+
+fn say_a_number(number: i32) {
+    println!("number is {}", number);
+}
+
+fn say_the_sum(a: i8, b: i8) {
+    println!("sum is {}", a + b);
+}
+
+/* DATA TYPES */
+fn data_types() {
+    /* Arrays */
+    let letters = ["a", "b", "c"];
+    let first_letter = letters[0];
+    println!("first letter is {}", first_letter);
+
+    let mut mut_letters = letters;
+    mut_letters[0] = "x";
+    println!("first letter is {}", mut_letters[0]);
+
+    let numbers: [i32; 5];
+    numbers = [0; 5];
+    let index: usize = numbers.len() - 1;
+    println!("last number is {}", numbers[index]);
+
+    /* Multidimensional arrays */
+    let parking_lot = [[1,2,3], [4,5,6]]; // inner arrays need to have same number of elements
+    let number = parking_lot[1][2];
+    println!("number is {}", number);
+
+    let _garage = [[[0; 100]; 20]; 5];  
+
+    /* Tuples */
+    let mut stuff: (u8, f32, char) = (10, 3.14, 'x');
+    stuff.0 += 3;
+    let first_item = stuff.0;
+    println!("first_item is {}", first_item);
+
+    let(_a,b,_c) = stuff;
+    println!("b is {}", b);
+}
+
+/* BASICS */
+fn basics() {
     let a = 13;
     let b = 2.3;
     let c: f32 = 120.0;
