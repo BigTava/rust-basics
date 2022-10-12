@@ -2,6 +2,46 @@ fn main() {
     // data_types();
     // basics();
     // funcions();
+    // conditional_execution();
+    loops();
+}
+
+/* PROGRAM FLOW CONTROL */
+fn conditional_execution() {
+    let x = 3;
+
+    if x + 1 != 3 {
+        println!("x + 1 is NOT 3!");
+    }
+
+    let y = 3;
+    if x > y {
+        println!("x is greater than y")
+    } else if x < y { 
+        println!("x is lower to y")
+    } else {
+        println!("x is equal to y")
+    }
+
+    let make_x_odd = true;
+    let x = if make_x_odd {1} else {2};
+
+    println!("x is {}", x);
+}
+
+fn loops() {
+    let mut count = 0;
+
+    let result = loop {
+        count += 1;
+        println!("count is {}", count);
+        if count == 5 {
+            break count;
+        }
+    };
+
+    println!("After the loop!");
+    println!("result is {}", result);
 }
 
 /* FUNCTIONS */
