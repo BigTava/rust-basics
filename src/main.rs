@@ -32,6 +32,7 @@ fn conditional_execution() {
 fn loops() {
     let mut count = 0;
 
+    // loop statement can be used to return a value
     let result = loop {
         count += 1;
         println!("count is {}", count);
@@ -42,6 +43,71 @@ fn loops() {
 
     println!("After the loop!");
     println!("result is {}", result);
+
+    count = 0;
+    while count <10 {
+        count += 2;
+        println!("count is {}", count);
+    }
+
+    count = 0;
+    let letters = ["a", "b", "c"];
+
+    while count < letters.len() {
+        println!("letter is {}", letters[count]);
+        count += 1;
+    }
+
+    for item in letters {
+        println!("for loop letter is {}", item);
+    }
+
+    for (index, &item) in letters.iter().enumerate() {
+        println!("item {} is {}", index, item);
+        if item == "e" {
+            break;
+        }
+    }
+
+    for number in 0..5 {
+        println!("number is {}", number);
+    }
+
+    let mut matrix = [[1,2,3], [2,3,4],[5,6,7]];
+
+    for row in matrix.iter_mut() {
+        for num in row.iter_mut() {
+            *num += 10;
+            print!("{}\t", num);
+        }
+        println!();
+    }
+
+    /* CHALLENGE */
+    let numbers = [1, 9, -2, 0, 23, 20, -7, 13, 37, 20, 56, -18, 20, 3];
+    let mut max: i32 = 0;
+    let mut min: i32 = 0;
+    let mut mean: f64 = 0.0;
+
+    let mut count: i32 = 0;
+    for number in numbers {
+        count += 1;
+        if number > max {
+            max = number;
+        } else if number < min {
+            min = number;
+        } 
+
+        mean += number as f64;
+    }
+
+    mean /= numbers.len() as f64;
+
+    assert_eq!(max, 56);
+    assert_eq!(min, -18);
+    assert_eq!(mean, 12.5);
+    println!("Tests passed!");
+
 }
 
 /* FUNCTIONS */
