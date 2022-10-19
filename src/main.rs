@@ -3,7 +3,7 @@ fn main() {
     // basics();
     // funcions();
     // conditional_execution();
-    loops();
+    // loops();
 }
 
 /* PROGRAM FLOW CONTROL */
