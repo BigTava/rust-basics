@@ -1,10 +1,78 @@
+use std::io;
+use rand::prelude::*;
+
 fn main() {
     // ownership();
     // ref_ownership();
     // reference();
     // slices();
-    challenge();
+    // challenge_references();
+    // input();
+    // crates();
+    // challenge_modules();
+    challenge_modules_solution();
 }
+
+/* MODULES */
+fn input(){
+    let mut buffer = String::new();
+    println!("Enter a message:");
+    io::stdin().read_line(&mut buffer);
+    println!("buffer is {}", buffer);
+
+    let number: i32 = buffer.trim().parse().unwrap();
+    println!("number + 1 is {}", number + 1);
+}
+
+fn crates() {
+    // let number = rand::random::<f64>();
+    let number = random::<f64>();
+    println!("number is {}", number);
+
+    let number = thread_rng().gen_range(1..11);
+    println!("number is {}", number);
+}
+
+fn challenge_modules() {
+    let number = thread_rng().gen_range(1..3);
+
+    let mut buffer = String::new();
+    println!("Enter your guess:");
+    io::stdin().read_line(&mut buffer);
+    let mut guess: i32 = buffer.trim().parse().unwrap();
+
+    while guess != number {
+        println!("Incorrect. Enter another guess:");
+        buffer = String::new();
+        io::stdin().read_line(&mut buffer);
+        guess = buffer.trim().parse().unwrap();
+    }
+
+    println!("Correct!");
+}
+
+fn challenge_modules_solution() {
+    let secret_number = rand::thread_rng().gen_range(1..100);
+
+    println!("I'm thinking of a number between 1 and 100..");
+    println!("Guess the number:");
+    loop {
+        let mut guess = String::new();
+        io::stdin().read_line(&mut guess).expect("Failed to read input line.");
+        let guess: u32 = guess.trim().parse().expect("Failed to parse the guess");
+
+        if guess > secret_number {
+            println!("\n{} is too high! Guess lower:", guess);
+        } else if guess < secret_number {
+            println!("\n{} is too low! Guess higher:", guess);
+        } else {
+            println!("\nYou got it! The secret number was {}.", secret_number);
+            break;
+        }
+    }
+}
+
+
 
 /* REFERENCES */
 fn trim_spaces(s: &str) -> &str{
@@ -27,7 +95,7 @@ fn trim_spaces(s: &str) -> &str{
     &s[last_front_space..first_rear_space]
 }
 
-fn challenge()  {
+fn challenge_references()  {
     let test1 = "We need more space.";
     assert_eq!(trim_spaces(test1), "We need more space.");
     
