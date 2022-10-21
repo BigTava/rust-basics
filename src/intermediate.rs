@@ -1,5 +1,5 @@
 use std::io;
-use rand::prelude::*;
+use rand::prelude::*; // prelude stands for most common functions
 
 fn main() {
     // ownership();
