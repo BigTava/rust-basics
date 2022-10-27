@@ -1,5 +1,8 @@
 use std::io;
 use rand::prelude::*; // prelude stands for most common functions
+use std::env;
+use std::fs;
+use std::io::prelude::*;
 
 fn main() {
     // ownership();
@@ -10,7 +13,94 @@ fn main() {
     // input();
     // crates();
     // challenge_modules();
-    challenge_modules_solution();
+    // challenge_modules_solution();
+    // cmd();
+    // read_files();
+    // write_files();
+    challenge_io_solution();
+}
+
+/* INPUTS AND OUTPUTS */
+fn cmd() {
+    if env::args().len() <= 2 {
+        println!("Program requires at least 2 arguments.");
+        return;
+    }
+
+    for (index, argument) in env::args().enumerate() {
+        println!("argument {} is {}", index, argument);
+    }
+
+    let arg2 =  env::args().nth(2).unwrap();
+    println!("arg2 is {}", arg2);
+}
+
+fn read_files() {
+    let contents = fs::read_to_string("./src/assets/planets.txt").unwrap();
+    println!("contents is {}", contents);
+
+    for line in contents.lines() {
+        println!("line is {}", line);
+    }
+
+    let contents = fs::read("./src/assets/planets.txt").unwrap();
+    println!("contents is {:?}", contents);
+}
+
+fn write_files() {
+    let mut speech = String::new();
+    speech.push_str("We choose to go to the Moon in this decate\n");
+    speech.push_str("And do the other things,\n");
+    speech.push_str("not because theu are easy,");
+
+    fs::write("./src/assets/speech.txt", speech);
+
+    let mut file = fs::OpenOptions::new().append(true).open("./src/assets/planets.txt").unwrap();
+    file.write(b"\nPluto");
+}
+
+fn challenge_io() {
+    if env::args().len() != 3 {
+        println!("{}", env::args().len());
+        println!("Program requires 3 arguments.");
+        return;
+    }
+
+    let file =  env::args().nth(1).unwrap();
+    let name =  env::args().nth(2).unwrap();
+    let mut found = false;
+
+    let contents = fs::read_to_string(format!("./src/assets/{}", file)).unwrap();
+    for line in contents.lines() {
+        if name == line {
+            println!("Found");
+            found = true;
+            return;
+        }
+    }
+
+    if found == false {
+        println!("Not Found");
+    }
+}
+
+fn challenge_io_solution() {
+    if env::args().len() < 2 {
+        eprintln!("Program requires two arguments: <file path> <search name>");
+        std::process::exit(1);
+    }
+
+    let file_path = env::args().nth(1).unwrap();
+    let search_name = env::args().nth(2).unwrap();
+
+    for line in fs::read_to_string(file_path).unwrap().lines() {
+        if line == search_name {
+            println!("{} did walk on the Moon!", search_name);
+            return;
+        }
+    }
+
+    println!("{} did NOT walk on the Moon... YET!", search_name);
 }
 
 /* MODULES */
