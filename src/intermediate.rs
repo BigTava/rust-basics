@@ -3,6 +3,7 @@ use rand::prelude::*; // prelude stands for most common functions
 use std::env;
 use std::fs;
 use std::io::prelude::*;
+use std::mem;
 
 fn main() {
     // ownership();
@@ -20,7 +21,84 @@ fn main() {
     // challenge_io_solution();
     // create_struct();
     // create_tuple_struct();
-    challenge_structs();
+    // challenge_structs();
+    // generic();
+    // generic_function();
+    // box_data_type();
+    challenge_generic();
+}
+
+/* GENERIC TYPES */
+#[derive(Debug)] // allows printing object
+struct GenericRectangle<T, U> {
+    width: T, 
+    height: U
+}
+
+impl<T,U> GenericRectangle<T, U> {
+    fn get_width(&self) -> &T {
+        &self.width 
+    }
+}
+
+impl GenericRectangle<u8, u8> {
+    fn get_perimter(&self) -> u8 {
+        2*self.width+2*self.height
+    }
+}
+
+fn generic() {
+    let rect = GenericRectangle {
+        width: 1u8,
+        height: 3u8
+    };
+    println!("rect is {:?}", rect);
+    println!("width is {}", rect.get_width());
+    println!("perimiter is {}", rect.get_perimter());
+}
+
+fn get_biggest<T: PartialOrd>(a: T, b: T) -> T {
+    if a > b {
+        a 
+    } else {
+        b
+    }
+}
+
+fn generic_function() {
+    println!("biggest is {}", get_biggest(1.2,2.1));
+}
+
+fn box_data_type() {
+    let vehicle = Shuttle {
+        name: String::from("Atlantis"),
+        crew_size: 7,
+        propellant: 8892834.0
+    };
+    println!("vehicle size on stack: {} bytes", mem::size_of_val(&vehicle));
+
+    let boxed_vehicle: Box<Shuttle> = Box::new(vehicle);
+    println!("boxed_vehicle size on stack: {} bytes", mem::size_of_val(&boxed_vehicle));
+    println!("boxed_vehicle size on heap: {} bytes", mem::size_of_val(&*boxed_vehicle)); // add *
+
+    let unboxed_vehicle: Shuttle = *boxed_vehicle;
+    println!("unboxed_vehicle size on stack: {} bytes", mem::size_of_val(&unboxed_vehicle));
+}
+
+fn sum_boxes<T: std::ops::Add<Output=T>>(a: Box<T>, b: Box<T>) -> Box<T> {
+    Box::new(*a+*b)
+}
+
+fn challenge_generic() {
+    let one = Box::new(1);
+    let two = Box::new(2);
+    assert_eq!(*sum_boxes(one, two), 3);
+
+    let pi = Box::new(3.14159);
+    let e = Box::new(2.71828);
+    assert_eq!(*sum_boxes(pi, e), 5.85987);
+
+    println!("Tests passed!");
 }
 
 /* STRUCTS */
