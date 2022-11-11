@@ -12,3 +12,8 @@ rand = "0.8.5"
  name = "intermediate"
  path = "src/intermediate.rs"
  # $ cargo run --bin intermediate
+
+ [[bin]]
+ name = "advanced"
+ path = "src/advanced.rs"
+ # $ cargo run --bin advanced
