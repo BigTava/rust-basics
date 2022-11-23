@@ -7,7 +7,81 @@ fn main() {
     // bounds_trait();
     // multiple_trait_bounds();
     // return_types();
-    challenge_traits()
+    // challenge_traits()
+    // borrow_checker();
+    // lifetime_annotation();
+    // lifetime_elision_rules();
+    struct_lifetime_annotations();
+}
+
+/* LIFETIMES */
+// lifetime annotation
+fn best_fuel<'a, 'b>(x: &'a str, y: &'b str) -> &'a str {
+    if x.len() > y.len() {
+        x 
+    } else {
+        x
+    }
+}
+
+fn lifetime_annotation() {
+    let result;
+    let propellant1 = String::from("RP-1");
+    {
+        let propellant2 = String::from("LNG");
+        result = best_fuel(&propellant1, &propellant2);
+    }
+    println!("result is {}", result);
+}
+
+
+fn borrow_checker() {
+    let propellant;
+    let rp1 = String::from("RP-1");
+    {
+
+        propellant = &rp1;
+
+    }
+    println!("propellant is {}", propellant);
+}
+
+fn get_first_word<'a>(s: &'a str) -> &'a str {
+    let bytes = s.as_bytes();
+
+    for (index, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..index]; // found a space
+        }
+    }
+
+    &s // no space found; input is a single word
+}
+
+fn lifetime_elision_rules() {
+    let message = String::from("Greetings from Earth!");
+    let first_word = get_first_word(&message);
+    println!("first_word is {}", first_word);
+}
+
+struct Shuttle<'a> {
+    name: &'a str
+}
+
+impl<'a, 'b> Shuttle<'a> {
+    fn send_transmission(&'a self, msg: &'b str) -> &'b str {
+        println!("Transmitting message: {}", msg);
+        msg
+    }
+}
+
+fn struct_lifetime_annotations() {
+    let vehicle = Shuttle {
+        name: "Endeavour"
+    };
+
+    let sender = vehicle.send_transmission("Greetings from orbit!");
+    println!("sender is {}", sender);
 }
 
 /* TRAITS */
