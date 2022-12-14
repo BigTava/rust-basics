@@ -11,7 +11,121 @@ fn main() {
     // borrow_checker();
     // lifetime_annotation();
     // lifetime_elision_rules();
-    struct_lifetime_annotations();
+    // struct_lifetime_annotations();
+    // define_enums();
+    // match_expression();
+    // option();
+    // matching_option();
+    // if_let();
+    challenge_enums();
+}
+
+/* ENUMS */
+#[derive(Debug)]
+enum Shape {
+    Circle(f64), 
+    Rectangle(f64, f64),
+    Triangle(f64, f64, f64)
+}
+
+impl Shape {
+    fn get_perimeter(&self) -> f64 {
+        match self {
+            Shape::Circle(r) => r*2.0*std::f64::consts::PI,
+            Shape::Rectangle(w, h) => (2.0 * w) + (2.0 * h),
+            Shape::Triangle(a, b, c) => a + b + c
+        }
+    }
+}
+
+fn define_enums() {
+    let my_shape = Shape::Rectangle(1.2, 3.4);
+    println!("my_shape is {:?}", my_shape);
+
+    match my_shape {
+        Shape::Circle(r) => println!("Circle with radius {}", r),
+        Shape::Rectangle(w, h) => println!("{} x {} Rectangle", w, h),
+        Shape::Triangle(a, b, c) => println!("Triangle with sides {}, {}, {}", a, b, c)
+    }
+
+    let perimeter = my_shape.get_perimeter();
+    println!("perimeter is {}", perimeter);
+
+}
+
+fn match_expression() {
+    let my_number = 4u8;
+
+    let result = match my_number {
+        0 => "zero",
+        1 => "one",
+        2 => "two",
+        3 => "three",
+        _ => {
+            println!("{} did not match", my_number);
+            "something else"
+        }
+    };
+    println!("result is {}", result);
+}
+
+fn option() {
+    let countdown = [5,4,3,2,1];
+    let number = countdown.get(5);
+
+    // creates problems. What is the option enum is none?
+    // let number = number.unwrap() + 1;
+
+    // use this
+    let number = number.unwrap_or(&0) + 1;
+
+    println!("number is {:?}", number);
+}
+
+fn matching_option() {
+    let countdown = [5,4,3,2,1];
+    let number = countdown.get(2);
+    // let number = number.unwrap_or(&0) + 1;
+    let number = match number {
+        Some(number) => number + 1,
+        None => 0
+    };
+    println!("number is {:?}", number);
+}
+
+fn if_let() {
+    let number = Some(13);
+
+    if let Some(13) = number {
+        println!("thirteen")
+    }
+}
+
+#[derive(Debug)]
+enum Location {
+    Unknown, 
+    Anonymous,
+    Known(f64, f64)
+}
+
+impl Location {
+    fn display(&self) {
+        match self {
+            Location::Unknown => println!("Unkown"),
+            Location::Anonymous => println!("Anonymous"),
+            Location::Known(lat, lon) => println!("{}, {}", lat, lon)
+        }
+    }
+}
+
+fn challenge_enums() {
+    let address = Location::Unknown;
+    address.display();
+    let address = Location::Anonymous;
+    address.display();
+    let address = Location::Known(28.608295, -80.604133);
+    address.display();
+
 }
 
 /* LIFETIMES */
